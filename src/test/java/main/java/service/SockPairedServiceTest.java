@@ -9,8 +9,8 @@ public class SockPairedServiceTest {
     SockPairedService service = null;
 
     @Test
-    public void outputOfSockPairs_doesNotHaveAnySockPair() {
-        String[] sockColors = {"pink", "red", "blue", "green"};
+    public void outputOfSockPairs_nothingProvided() {
+        String[] sockColors = {};
         service = new SockPairedService(sockColors);
 
         String actualOutput = service.outputOfSockPairs();
@@ -18,8 +18,26 @@ public class SockPairedServiceTest {
     }
 
     @Test
+    public void outputOfSockPairs_doesNotHaveAnySockPair() {
+        String[] sockColors = {"pink", "red", "blue", "green"};
+        service = new SockPairedService(sockColors);
+
+        String actualOutput = service.outputOfSockPairs();
+        assertEquals("No pairs, Unmatched: pink red blue green", actualOutput);
+    }
+
+    @Test
     public void outputOfSockPairs_hasPairOfSocks() {
         String[] sockColors = {"pink", "pink", "blue", "green"};
+        service = new SockPairedService(sockColors);
+
+        String actualOutput = service.outputOfSockPairs();
+        assertEquals("pink: 1 pair, Unmatched: blue green", actualOutput);
+    }
+
+    @Test
+    public void outputOfSockPairs_hasNoUnmatched() {
+        String[] sockColors = {"pink", "pink"};
         service = new SockPairedService(sockColors);
 
         String actualOutput = service.outputOfSockPairs();
@@ -32,6 +50,6 @@ public class SockPairedServiceTest {
         service = new SockPairedService(sockColors);
 
         String actualOutput = service.outputOfSockPairs();
-        assertEquals("pink: 3 pairs, green: 2 pairs, yellow: 1 pair", actualOutput);
+        assertEquals("pink: 3 pairs, green: 2 pairs, yellow: 1 pair, Unmatched: blue yellow red", actualOutput);
     }
 }
